@@ -7,12 +7,17 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('git checkout') {
             steps {
                 // Get some code from a GitHub repository
-                git clone  'https://github.com/akcdevops/project1.git'
-                sh "cd project1"
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                git branch: 'main', url: 'https://github.com/akcdevops/project1.git'
+                
+            }
+        }
+        stage('Build'){
+            steps{
+               sh 'cd project1'
+               sh 'mvn clean package'
             }
         }
         
