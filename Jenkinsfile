@@ -24,7 +24,7 @@ pipeline {
                script{
                  withAWS(credentials: 'awscred') 
                  {
-                    s3Upload(bucket: 'akcdevops/project-1', path: '/var/jenkins_home/workspace/project1/')
+                    s3Upload(bucket: 'akcdevops/project-1', path: '/var/jenkins_home/workspace/project1/',file: 'target/*.war')
                  }
                } 
             }
