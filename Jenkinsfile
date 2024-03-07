@@ -16,15 +16,6 @@ pipeline {
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
-        stage('Push .war to s3 Bucket'){
-            steps{
-                script{
-                     withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) 
-                    {
-                         sh 'aws s3 cp target/*.war s3://akcdevops/project-1/'
-                    }
-                }
-            }    
-        }
+        
     }
 }
