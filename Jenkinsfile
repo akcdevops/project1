@@ -24,7 +24,7 @@ pipeline {
                script{
                  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'awscred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         // Copy .war file to S3 bucket
-                        sh 'aws s3 cp target/*.war s3://akcdevops/project-1/'
+                       s3Upload(file:'target', bucket:'akcdevops/project-1', path:'/var/jenkins_home/workspace/project1/target')
                     }
                } 
             }
