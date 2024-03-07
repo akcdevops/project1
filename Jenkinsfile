@@ -10,9 +10,8 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git  'https://github.com/akcdevops/project1.git'
-
-                // Run Maven on a Unix agent.
+                git clone  'https://github.com/akcdevops/project1.git'
+                sh "cd project1"
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
