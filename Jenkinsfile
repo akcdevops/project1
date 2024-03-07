@@ -22,10 +22,10 @@ pipeline {
         stage('Artifact Upload to S3'){
             steps{
                script{
-                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'awscred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                        // Copy .war file to S3 bucket
-                        sh 'aws s3 cp target/*.war s3://akcdevops/project-1/'
-                    }
+                 withAWS(credentials: 'awscred') 
+                 {
+                    s3Upload(bucket: 'akcdevops/project-1', path: '/var/jenkins_home/workspace/project1/')
+                 }
                } 
             }
 
