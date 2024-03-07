@@ -22,7 +22,7 @@ pipeline {
         stage('Artifact Upload to S3'){
             steps{
                script{
-                 withAWS(credentials: 'awscred') 
+                 withAWS(credentials: 'awscred',region: 'ap-south-1') 
                  {
                     s3Upload(bucket: 'akcdevops/project-1', path: '/var/jenkins_home/workspace/project1/target',file: 'target')
                  }
