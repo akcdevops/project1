@@ -19,22 +19,17 @@ pipeline {
                sh 'mvn clean package'
             }
         }
-        stage('Upload') {
-
-        dir('/var/jenkins_home/workspace/'){
-
-            pwd(); //Log current directory
-
-            withAWS(region:'ap-south-1',credentials:'awscred') {
-
-                 def identity=awsIdentity();//Log AWS credentials
-
-                // Upload files from working directory 'dist' in your project workspace
-                s3Upload(bucket:"akcdevops", workingDir:'project1/target', includePathPattern:'**/*.war');
+        stage('Upload'){
+            steps{
+               script{
+                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'awscred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        // Copy .war file to S3 bucket
+                        sh 'aws s3 cp target/*.war s3://akcdevops/project-1/'
+                    }
+               } 
             }
 
-        };
-    }
+        }
         
     }
 }
