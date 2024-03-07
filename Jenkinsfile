@@ -19,7 +19,7 @@ pipeline {
                sh 'mvn clean package'
             }
         }
-        stage('Upload'){
+        stage('Artifact Upload to S3'){
             steps{
                script{
                  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'awscred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
